@@ -13,15 +13,15 @@ import org.springframework.web.bind.annotation.*;
 public class AlumnoController {
 
     @Autowired
-    private AlumnoRepository alumnoRepository;
+    private AlumnoRepository alumnoRepo;
 
     @Autowired
-    private EscuelaRepository escuelaRepository;
+    private EscuelaRepository escuelaRepo;
 
     // LISTAR ALUMNOS
     @GetMapping
     public String listarAlumnos(Model model) {
-        model.addAttribute("alumnos", alumnoRepository.findAll());
+        model.addAttribute("alumnos", alumnoRepo.findAll());
         return "alumnos/index";
     }
 
@@ -29,30 +29,30 @@ public class AlumnoController {
     @GetMapping("/nuevo")
     public String formularioNuevoAlumno(Model model) {
         model.addAttribute("alumno", new Alumno());
-        model.addAttribute("escuelas", escuelaRepository.findAll());
+        model.addAttribute("escuelas", escuelaRepo.findAll());
         return "alumnos/form";
     }
 
     // GUARDAR ALUMNO
     @PostMapping("/guardar")
     public String guardarAlumno(@ModelAttribute("alumno") Alumno alumno) {
-        alumnoRepository.save(alumno);
+        alumnoRepo.save(alumno);
         return "redirect:/alumnos";
     }
 
     // EDITAR ALUMNO
     @GetMapping("/editar/{id}")
     public String editarAlumno(@PathVariable("id") Integer id, Model model) {
-        Alumno alumno = alumnoRepository.findById(id).orElse(null);
+        Alumno alumno = alumnoRepo.findById(id).orElse(null);
         model.addAttribute("alumno", alumno);
-        model.addAttribute("escuelas", escuelaRepository.findAll());
+        model.addAttribute("escuelas", escuelaRepo.findAll());
         return "alumnos/form";
     }
 
     // ELIMINAR ALUMNO
     @GetMapping("/eliminar/{id}")
     public String eliminarAlumno(@PathVariable("id") Integer id) {
-        alumnoRepository.deleteById(id);
+        alumnoRepo.deleteById(id);
         return "redirect:/alumnos";
     }
 }

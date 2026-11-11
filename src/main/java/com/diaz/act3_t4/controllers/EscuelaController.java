@@ -12,12 +12,12 @@ import org.springframework.web.bind.annotation.*;
 public class EscuelaController {
 
     @Autowired
-    private EscuelaRepository escuelaRepository;
+    private EscuelaRepository escuelaRepo;
 
     // LISTAR ESCUELAS
     @GetMapping
     public String listarEscuelas(Model model) {
-        model.addAttribute("escuelas", escuelaRepository.findAll());
+        model.addAttribute("escuelas", escuelaRepo.findAll());
         return "escuelas/index"; // Renderizará la vista templates/escuelas/index.html
     }
 
@@ -31,14 +31,14 @@ public class EscuelaController {
     // GUARDAR ESCUELA
     @PostMapping("/guardar")
     public String guardarEscuela(@ModelAttribute("escuela") Escuela escuela) {
-        escuelaRepository.save(escuela);
+        escuelaRepo.save(escuela);
         return "redirect:/escuelas";
     }
 
     // EDITAR ESCUELA
     @GetMapping("/editar/{id}")
     public String editarEscuela(@PathVariable Integer id, Model model) {
-        Escuela escuela = escuelaRepository.findById(id).orElse(null);
+        Escuela escuela = escuelaRepo.findById(id).orElse(null);
         model.addAttribute("escuela", escuela);
         return "escuelas/form";
     }
@@ -46,7 +46,7 @@ public class EscuelaController {
     // ELIMINAR ESCUELA
     @GetMapping("/eliminar/{id}")
     public String eliminarEscuela(@PathVariable Integer id) {
-        escuelaRepository.deleteById(id);
+        escuelaRepo.deleteById(id);
         return "redirect:/escuelas";
     }
 }
