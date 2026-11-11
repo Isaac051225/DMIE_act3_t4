@@ -6,5 +6,5 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface EscuelaRepository extends JpaRepository<Escuela, Integer> {
-    // Hereda todos los métodos CRUD para la entidad Escuela (save, findAll, findById, deleteById, etc.)
+    // Hereda todos los métodos CRUD para la entidad Escuela
 }
